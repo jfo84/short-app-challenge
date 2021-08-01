@@ -2,6 +2,12 @@ class ShortUrl < ApplicationRecord
   validates :full_url, presence: true
   validate :validate_full_url
 
+  def self.find_by_short_code(sc)
+    decoded_id = Base62.decode(sc) + 1
+
+    find_by(id: decoded_id)
+  end
+
   def short_code
     return nil unless id.present?
 
