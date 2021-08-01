@@ -2,7 +2,7 @@ class ShortUrl < ApplicationRecord
   validate :validate_full_url
 
   def short_code
-    return nil if !persisted?
+    return nil unless id.present?
 
     num = id - 1
 
@@ -15,6 +15,10 @@ class ShortUrl < ApplicationRecord
   private
 
   def validate_full_url
+  #   uri = URI.parse(value)
+  #   uri.is_a?(URI::HTTP) && uri.host.present?
+  # rescue
+  #   errors.add(:full_url, "Full url is not a valid url")
   end
 
 end
