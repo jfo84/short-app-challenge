@@ -6,11 +6,13 @@ class ShortUrlsController < ApplicationController
   end
 
   def create
-    @short_url = ShortUrl.create!(full_url: full_url)
+    @short_url = ShortUrl.new(full_url: full_url)
 
-    render json: { short_code: @short_url.short_code }, status: :created
-  rescue ActiveRecord::RecordInvalid => error
-    render json: { error: error.message }, status: :bad_request
+    if @short_url.save
+      render json: { short_code: @short_url.short_code }, status: :created
+    else
+      render json: { errors: humanize_errors }, status: :bad_request
+    end
   end
 
   def show
@@ -20,6 +22,12 @@ class ShortUrlsController < ApplicationController
 
   def full_url
     params.require(:full_url)
+  end
+
+  def humanize_errors
+    @short_url.errors.map do |attribute, error_message|
+      "#{attribute.to_s.humanize} #{error_message}"
+    end
   end
 
 end
