@@ -1,4 +1,5 @@
 class ShortUrl < ApplicationRecord
+  validates :full_url, presence: true
   validate :validate_full_url
 
   def short_code
