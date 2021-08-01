@@ -19,6 +19,8 @@ class ShortUrlsController < ApplicationController
     @short_url = ShortUrl.find_by_short_code(short_code)
 
     if @short_url.present?
+      @short_url.update_attribute(:click_count, @short_url.click_count + 1)
+
       redirect_to(@short_url.full_url)
     else
       render json: { error: 'No valid redirect found' }, status: :not_found
