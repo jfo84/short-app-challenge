@@ -23,9 +23,22 @@ RSpec.describe ShortUrlsController, type: :controller do
 
   describe "create" do
 
-    it "creates a short_url" do
-      post :create, params: { full_url: "https://www.test.rspec" }, format: :json
-      expect(parsed_response['short_code']).to be_a(String)
+    describe "success" do
+      let(:full_url) { "https://www.test.rspec" }
+
+      it "creates a short_url" do
+        post :create, params: { full_url: full_url }, format: :json
+        expect(parsed_response['short_code']).to be_a(String)
+      end
+
+      it "queues an UpdateTitleJob" do
+        ActiveJob::Base.queue_adapter = :test
+
+        expect do
+          post :create, params: { full_url: full_url }, format: :json
+        end.to have_enqueued_job(UpdateTitleJob)
+      end
+
     end
 
     it "does not create a short_url" do
