@@ -1,10 +1,12 @@
 class ShortUrl < ApplicationRecord
-
-  CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
-
   validate :validate_full_url
 
   def short_code
+    return nil if !persisted?
+
+    num = id - 1
+
+    Base62.encode(num)
   end
 
   def update_title!
