@@ -30,3 +30,7 @@
 # Checking your short URL redirect
 
     curl -I localhost:3000/abc
+
+# Algorithm
+
+    The test cases required it, but generally speaking the "correct" way to shorten URLs is with base62 encoding. If you google around a bit, you find that big tech uses this type of encoding with a stream cipher to generate unique short codes. The choice makes logical sense because 62 is a high enough base value that you will reach your database's limit for unsigned integer values within 10 or 11 characters, while something like hexadecimal will still have quite large URLs if you have a large number of records in the system. You also don't have to worry too much about odd characters that could invalidate your URL if you use a larger character set. I used [this library](https://github.com/steventen/base62-rb) as a reference implementation.
