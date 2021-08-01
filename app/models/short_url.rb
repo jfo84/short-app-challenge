@@ -8,6 +8,10 @@ class ShortUrl < ApplicationRecord
     find_by(id: decoded_id)
   end
 
+  def public_attributes
+    { 'short_code' => short_code }
+  end
+
   def short_code
     return nil unless id.present?
 
@@ -17,6 +21,9 @@ class ShortUrl < ApplicationRecord
   end
 
   def update_title!
+    UpdateTitleJob.new.perform(id)
+
+    reload
   end
 
   private
