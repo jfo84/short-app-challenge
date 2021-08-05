@@ -6,6 +6,7 @@
     "lib": ["es6", "dom"],
     "module": "es6",
     "moduleResolution": "node",
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
         "*": ["node_modules/*", "app/javascript/*"]

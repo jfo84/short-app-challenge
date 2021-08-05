@@ -9,7 +9,7 @@ class ShortUrl < ApplicationRecord
   end
 
   def public_attributes
-    { 'short_code' => short_code }
+    { 'title' => title, 'short_code' => short_code }
   end
 
   def short_code
