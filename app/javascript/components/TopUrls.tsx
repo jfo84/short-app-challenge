@@ -1,8 +1,12 @@
 import * as React from 'react';
+import { Typography, Table } from 'antd';
 
 const { useEffect, useState } = React;
+const { Title } = Typography;
 
 import Spinner from './Spinner';
+
+import '../stylesheets/TopUrls';
 
 type TopUrlsType = {
   urls: UrlType[];
@@ -11,11 +15,30 @@ type TopUrlsType = {
 type UrlType = {
   title: string;
   short_code: string;
+  full_url: string;
 };
 
 type Props = {
   formUrl: string;
 };
+
+const columns = [
+  {
+    title: 'Title',
+    dataIndex: 'title',
+    key: 'title',
+  },
+  {
+    title: 'Short Code',
+    dataIndex: 'short_code',
+    key: 'short_code',
+  },
+  {
+    title: 'Full URL',
+    dataIndex: 'full_url',
+    key: 'full_url',
+  },
+];
 
 const getTopUrls = () =>
   fetch('http://localhost:3000/top_urls')
@@ -43,23 +66,22 @@ const TopUrls = ({ formUrl }: Props) => {
 
   console.log('urls: ', urls);
 
+  const dataSource = urls.map((url, index) => ({
+    key: index,
+    title: url.title,
+    short_code: url.short_code,
+    full_url: url.full_url,
+  }));
+
   return (
     <div className='top-urls-container'>
-      <h2 className='top-urls-title'>
+      <Title level={3} className='top-urls-title'>
         Top 100 URLs
-      </h2>
+      </Title>
       <div className='url-data-container'>
-        {urls.length == 0 ? <Spinner /> :
-          urls.map((url, index) => (
-            <div className='url-data' key={`url-data-${index}`}>
-              <div className='url-title'>
-                {url.title}
-              </div>
-              <div className='url-short-code'>
-                {url.short_code}
-              </div>
-            </div>
-          ))}
+        {urls.length == 0 ?
+          <Spinner /> :
+          <Table columns={columns} dataSource={dataSource}/>}
       </div>
     </div>
   );

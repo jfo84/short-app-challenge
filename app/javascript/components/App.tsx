@@ -1,9 +1,14 @@
 import * as React from 'react';
+import { Typography } from 'antd';
 
 const { useState } = React;
+const { Title } = Typography;
 
 import UrlForm from './UrlForm';
 import TopUrls from './TopUrls';
+
+import 'antd/dist/antd.css';
+import '../stylesheets/App';
 
 const useForm = () => {
   const [formUrl, setUrl] = useState<string>('');
@@ -30,6 +35,8 @@ const useForm = () => {
         ).then((data) => {
           console.log('Created ShortUrl:', data.short_code);
           setUrl(url => '');
+        }).catch(error => {
+          // TODO: Handle error on input field
         });
       }
     }
@@ -47,9 +54,9 @@ const App = () => {
 
   return (
     <div className='app-container'>
-      <h2 className='app-title'>
+      <Title level={2} className='app-title'>
         Url Shortener
-      </h2>
+      </Title>
       <UrlForm
         formUrl={formUrl}
         handleChange={handleChange}

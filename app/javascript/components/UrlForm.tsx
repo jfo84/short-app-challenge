@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { Input } from 'antd';
+
+import '../stylesheets/UrlForm';
 
 type Props = {
   formUrl: string;
@@ -8,20 +11,15 @@ type Props = {
 
 const UrlForm = ({ formUrl, handleChange, handleKeyUp }: Props) => (
   <div className='form-container'>
-    {/* TODO Flex 0 auto */}
-    <div className='flex'>
-      <input
-        id='url'
-        name='url'
-        type='text'
-        className='url-input form-control'
-        placeholder='Type a URL to shorten'
-        aria-label='Url'
-        value={formUrl}
-        onChange={handleChange}
-        onKeyUp={handleKeyUp}
-      />
-    </div>
+    <Input
+      type='text'
+      className='url-input'
+      placeholder='Type a URL to shorten. Press Enter to POST'
+      aria-label='Url'
+      value={formUrl}
+      onChange={handleChange}
+      onKeyUp={handleKeyUp}
+    />
   </div>
 );
 
