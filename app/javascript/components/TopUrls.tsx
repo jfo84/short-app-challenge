@@ -13,11 +13,15 @@ type UrlType = {
   short_code: string;
 };
 
+type Props = {
+  formUrl: string;
+};
+
 const getTopUrls = () =>
   fetch('http://localhost:3000/top_urls')
     .then(data => data.json());
 
-const TopUrls = () => {
+const TopUrls = ({ formUrl }: Props) => {
   const [topUrls, setTopUrls] = useState<TopUrlsType>({ urls: [] });
 
   useEffect(() => {
@@ -33,7 +37,7 @@ const TopUrls = () => {
     return () => {
       fetched = true;
     };
-  }, []);
+  }, [formUrl]);
 
   const { urls } = topUrls;
 

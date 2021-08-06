@@ -12,7 +12,7 @@ class ShortUrlsController < ApplicationController
     @short_url = ShortUrl.new(full_url: full_url)
 
     if @short_url.save
-      UpdateTitleJob.perform_later(@short_url.id)
+      UpdateTitleJob.new.perform(@short_url.id)
 
       render json: { short_code: @short_url.short_code }, status: :created
     else
