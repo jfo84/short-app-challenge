@@ -9,7 +9,7 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-        "*": ["node_modules/*", "app/javascript/*"]
+      "*": ["app/javascript/*"]
     },
     "sourceMap": true,
     "target": "es5",

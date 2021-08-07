@@ -12,5 +12,7 @@ class UpdateTitleJob < ApplicationJob
     end
 
     short_url.update_attribute(:title, title)
+  rescue SocketError
+    short_url.update_attribute(:title, 'Failed to fetch title')
   end
 end

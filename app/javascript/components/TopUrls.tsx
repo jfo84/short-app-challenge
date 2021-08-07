@@ -6,8 +6,6 @@ const { Title } = Typography;
 
 import Spinner from './Spinner';
 
-import '../stylesheets/TopUrls';
-
 type TopUrlsType = {
   urls: UrlType[];
 };
@@ -63,8 +61,6 @@ const TopUrls = ({ formUrl }: Props) => {
   }, [formUrl]);
 
   const { urls } = topUrls;
-
-  console.log('urls: ', urls);
 
   const dataSource = urls.map((url, index) => ({
     key: index,
