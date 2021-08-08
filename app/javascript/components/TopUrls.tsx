@@ -64,9 +64,7 @@ const TopUrls = ({ formUrl }: Props) => {
 
   const dataSource = urls.map((url, index) => ({
     key: index,
-    title: url.title,
-    short_code: url.short_code,
-    full_url: url.full_url,
+    ...url,
   }));
 
   return (
@@ -74,11 +72,9 @@ const TopUrls = ({ formUrl }: Props) => {
       <Title level={3} className='top-urls-title'>
         Top 100 URLs
       </Title>
-      <div className='url-data-container'>
-        {urls.length == 0 ?
+      {urls.length == 0 ?
           <Spinner /> :
           <Table columns={columns} dataSource={dataSource}/>}
-      </div>
     </div>
   );
 }
